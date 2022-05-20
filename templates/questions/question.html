@@ -25,30 +25,28 @@
       			<h2>{{question.title}}</h2>
 				{{question.subject}}, {{question.create_date}}
 				<hr>
-				<form class="form-check my-3" method="post">
+				<form class="form-check my-3">
 					<h3>{{question.content}}</h3><br>
 					<div class="form-group">
-						<input class="form-check-input" type="radio" name="choice" id="ans1" value="1">
-        				<label class="form-check-label">{{question.ans1}}</label>
+        				<label class="form-check-label">1. {{question.ans1}}</label>
 					</div>
 					<div class="form-group">
-						<input class="form-check-input" type="radio" name="choice" id="ans2" value="2">
-        				<label class="form-check-label">{{question.ans2}}</label>
+        				<label class="form-check-label">2. {{question.ans2}}</label>
 					</div>
 					<div class="form-group">
-						<input class="form-check-input" type="radio" name="choice" id="ans3" value="3">
-        				<label class="form-check-label">{{question.ans3}}</label>
+        				<label class="form-check-label">3. {{question.ans3}}</label>
 					</div>
 					<div class="form-group">
-						<input class="form-check-input" type="radio" name="choice" id="ans4" value="4">
-        				<label class="form-check-label">{{question.ans4}}</label>
+        				<label class="form-check-label">4. {{question.ans4}}</label>
 					</div>
-    				<input class="btn btn-primary" type="submit" value="제출">
+    				<input onclick="location.href='../update/{{question.id}}'" class="btn btn-primary" type="button" value="수정">
+					<input <input onclick="location.href='../delete/{{question.id}}'" class="btn btn-danger" type="button" value="삭제">
+					<input onclick="location.href='../'" class="btn btn-secondary" type="button" value="취소">
 				</form>
     		</div>
   		</div>
 		<br>
-        <div className='App-footer'>
+        <div class='m-2'>
         <div>
             더보기&nbsp;
         	<a href='https://stonesy927.tistory.com/' target='_blank'>

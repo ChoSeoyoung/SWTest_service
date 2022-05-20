@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Question
 from django.shortcuts import render
+from .forms import QuestionForm
+from django.utils import timezone
 
 # Create your views here.
 def index(request):
@@ -10,14 +12,39 @@ def index(request):
     return render(request,'questions/questions.html',context)
 
 def detail(request, question_id):
-    question = Question.objects.get(id=question_id)
+    question = get_object_or_404(Question, pk=question_id)
     context = {'question' : question }
     return render(request,'questions/question.html', context)
 
-def modify(request,question_id):
-    question = Question.objects.get(id=question_id)
-    context = {'question': question}
-    return render(request,'questions/editQuestion.html', context)
+def create(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.create_date = timezone.now()
+            question.save()
+            return redirect('questions:index')
+    else:
+        form = QuestionForm()
+    context = {'form': form}
+    return render(request, 'questions/createQuestion.html', context)
 
-def delete(request):
-    return HttpResponse("질문 삭제")
+def update(request,question_id):
+    question = get_object_or_404(Question, pk=question_id)
+
+    if request.method == 'POST':
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.save()
+            return redirect('questions:detail', question_id=question_id)
+    else:
+        form = QuestionForm(instance=question)
+    context = {'form': form}
+
+    return render(request, 'questions/updateQuestion.html', context)
+
+def delete(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    question.delete()
+    return redirect('questions:index')

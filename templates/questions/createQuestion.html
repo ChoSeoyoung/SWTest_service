@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8">
+	<title>index.html</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+	<style>
+		.color1 {color: #c3d4e8;}
+		.color2 {color: #f3f3f3;}
+		.color3 {color: #1d202f;}
+		.color4 {color: #79787e;}
+		.color5 {color: #e5e5e5;}
+	</style>
+</head>
+<body>
+	<div>
+		<div class="py-4 text-center">
+  			<header>
+  				<h1><a class="text-decoration-none" href="../">GETA+</a></h1>
+  			</header>
+   		</div>
+        <div class='container my-3'>
+			{% block content %}
+    		<div class="border border-dark p-3">
+      			<h2>문제 등록</h2>
+				하단의 빈칸을 모두 채워주세요.
+				<hr>
+				<form method="post" class="post-form my-3">
+					{% csrf_token %}
+					{{ form.as_p }}
+					<button type="submit" class="btn btn-primary">등록</button>
+        			<button onclick="location.href='../'" type="button" class="btn btn-secondary">취소</button>
+				</form>
+    		</div>
+			{% endblock %}
+  		</div>
+		<br>
+        <div class='m-2'>
+        <div>
+            더보기&nbsp;
+        	<a href='https://stonesy927.tistory.com/' target='_blank'>
+            Blog
+        	</a>
+        	&nbsp;&nbsp;
+        	<a href='https://github.com/ChoSeoyoung' target='_blank'>
+            GitHub
+        	</a>
+      	</div>
+		<div>
+        	Copyright 2022. SeoyoungCho. All rights reserved.
+      	</div>
+    	</div>
+	</div>
+</body>
+</html>
