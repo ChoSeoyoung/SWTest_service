@@ -12,28 +12,12 @@
 		.color4 {color: #79787e;}
 		.color5 {color: #e5e5e5;}
 	</style>
-	<script>
-		function is_correct(answer) {
-			var found = null;
-			var contents = document.getElementsByName("content");
-			for(var i=0;i<contents.length;i++){
-				if(contents[i].checked == true)
-					found = contents[i].value;
-			}
-			if(found==answer)
-				alert("정답입니다.");
-			else
-				alert("틀렸습니다.");
-
-			document.form_submit.submit();
-		}
-	</script>
 </head>
 <body>
 	<div>
 		<div class="py-4 text-center">
   			<header>
-  				<h1><a class="text-decoration-none" href="/questions/">GETA+</a></h1>
+  				<h1><a class="text-decoration-none" href="/">GETA+</a></h1>
   			</header>
    		</div>
         <div class='container my-3'>
@@ -63,7 +47,7 @@
 						</div>
 					</div>
 					<br>
-    				<input onclick='is_correct({{question.ans}})' class="btn btn-primary" type="button" value="제출">
+    				<input class="btn btn-primary" type="submit" value="제출">
 					<input onclick="location.href='../../../{{question.id}}'" class="btn btn-secondary" type="button" value="취소">
 				</form>
     		</div>

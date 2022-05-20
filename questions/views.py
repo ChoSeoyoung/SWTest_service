@@ -6,7 +6,7 @@ from .forms import QuestionForm, AnswerForm
 from django.utils import timezone
 
 # Create your views here.
-def index(request):
+def list(request):
     question_list = Question.objects.order_by('-create_date')
     context = {'question_list' : question_list}
     return render(request,'questions/questions.html',context)
@@ -24,7 +24,7 @@ def create(request):
             question = form.save(commit=False)
             question.create_date = timezone.now()
             question.save()
-            return redirect('questions:index')
+            return redirect('questions:list')
     else:
         form = QuestionForm()
     context = {'form': form}
@@ -48,7 +48,7 @@ def update(request,question_id):
 def delete(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     question.delete()
-    return redirect('questions:index')
+    return redirect('questions:list')
 
 def answer_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

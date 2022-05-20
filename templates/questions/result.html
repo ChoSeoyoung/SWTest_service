@@ -17,7 +17,7 @@
 	<div>
 		<div class="py-4 text-center">
   			<header>
-  				<h1><a class="text-decoration-none" href="/questions/">GETA+</a></h1>
+  				<h1><a class="text-decoration-none" href="/">GETA+</a></h1>
   			</header>
    		</div>
         <div class='container my-3'>
@@ -78,8 +78,10 @@
 		var sol = {{question.ans}}
 		var selected = document.getElementById("{{answer.content}}");
 		if(choice == sol){
+			alert("맞았습니다.");
 			selected.style.color="green";
 		}else{
+			alert("틀렸습니다.");
 			var solution = document.getElementById("{{question.ans}}");
 			selected.style.color="red";
 			solution.style.color="blue";
