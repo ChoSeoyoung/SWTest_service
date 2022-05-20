@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Question
+from .models import Question, Answer
 from django.shortcuts import render
 from .forms import QuestionForm, AnswerForm
 from django.utils import timezone
@@ -59,9 +59,20 @@ def answer_create(request, question_id):
             answer.create_date = timezone.now()
             answer.question = question
             answer.save()
-            return redirect('questions:detail', question_id = question.id)
+            return redirect('questions:answer_result', answer_id=answer.id)
     else:
         form = AnswerForm()
-        context = {'form': form, 'question': question}
+        context = {'form': form, 'question': question }
         return render(request, 'questions/exams.html', context)
+
+def answer_result(request, answer_id):
+    answer = get_object_or_404(Answer, pk=answer_id)
+    question = answer.question
+    total = len(Answer.objects.filter(question=question))
+    ans1 = int(len(Answer.objects.filter(question=question).filter(content=1))/total*100)
+    ans2 = int(len(Answer.objects.filter(question=question).filter(content=2))/total*100)
+    ans3 = int(len(Answer.objects.filter(question=question).filter(content=3))/total*100)
+    ans4 = int(len(Answer.objects.filter(question=question).filter(content=4))/total*100)
+    context = {'question': question, 'answer': answer, 'ans1': ans1, 'ans2': ans2, 'ans3': ans3, 'ans4': ans4}
+    return render(request, 'questions/result.html', context)
 
