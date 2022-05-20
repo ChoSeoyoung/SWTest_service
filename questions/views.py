@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Question
 from django.shortcuts import render
-from .forms import QuestionForm
+from .forms import QuestionForm, AnswerForm
 from django.utils import timezone
 
 # Create your views here.
@@ -20,7 +20,6 @@ def create(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
         question = form.save(commit=False)
-        print(question.title)
         if form.is_valid():
             question = form.save(commit=False)
             question.create_date = timezone.now()
@@ -53,7 +52,16 @@ def delete(request, question_id):
 
 def answer_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    context = {'question' : question }
-    question.answer_set.create(content=request.POST.get('ans'), create_date=timezone.now())
-    return redirect('questions:index')
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.create_date = timezone.now()
+            answer.question = question
+            answer.save()
+            return redirect('questions:detail', question_id = question.id)
+    else:
+        form = AnswerForm()
+        context = {'form': form, 'question': question}
+        return render(request, 'questions/exams.html', context)
 
