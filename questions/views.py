@@ -19,6 +19,8 @@ def detail(request, question_id):
 def create(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
+        question = form.save(commit=False)
+        print(question.title)
         if form.is_valid():
             question = form.save(commit=False)
             question.create_date = timezone.now()
@@ -40,7 +42,7 @@ def update(request,question_id):
             return redirect('questions:detail', question_id=question_id)
     else:
         form = QuestionForm(instance=question)
-    context = {'form': form}
+    context = {'form': form, 'question': question}
 
     return render(request, 'questions/updateQuestion.html', context)
 
@@ -48,3 +50,10 @@ def delete(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     question.delete()
     return redirect('questions:index')
+
+def answer_create(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    context = {'question' : question }
+    question.answer_set.create(content=request.POST.get('ans'), create_date=timezone.now())
+    return redirect('questions:index')
+

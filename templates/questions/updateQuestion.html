@@ -17,23 +17,89 @@
 	<div>
 		<div class="py-4 text-center">
   			<header>
-  				<h1><a class="text-decoration-none" href="../">GETA+</a></h1>
+  				<h1><a class="text-decoration-none" href="../../../">GETA+</a></h1>
   			</header>
    		</div>
         <div class='container my-3'>
-			{% block content %}
     		<div class="border border-dark p-3">
       			<h2>문제 등록</h2>
 				하단의 빈칸을 모두 채워주세요.
 				<hr>
-				<form method="post" class="post-form my-3">
+				<form class="form my-2" method="post">
 					{% csrf_token %}
-					{{ form.as_p }}
-					<button type="submit" class="btn btn-primary">등록</button>
-        			<button onclick="location.href='../'" type="button" class="btn btn-secondary">취소</button>
-				</form>
+        			<div class="form-group m-2">
+            			<label for="title">제목</label>
+            			<input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요"
+						value="{{form.title.value}}">
+        			</div>
+					<div class="form-check-inline m-2">
+						<div>과목</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="subject" id="운영체제" checked>
+  							<label class="form-check-label" for="운영체제">운영체제</label>
+						</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="subject" id="알고리즘">
+  							<label class="form-check-label" for="알고리즘">알고리즘</label>
+						</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="subject" id="자료구조">
+  							<label class="form-check-label" for="자료구조">자료구조</label>
+						</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="subject" id="오픈소스">
+  							<label class="form-check-label" for="오픈소스">오픈소스</label>
+						</div>
+					</div>
+        			<div class="form-group m-2">
+            			<label>문제</label>
+            			<input type="text" class="form-control" id="content" name="content" placeholder="문제를 입력하세요"
+						value="{{form.content.value}}">
+        			</div>
+					<div class="form-group m-2">
+            			<label>선택지1</label>
+            			<input type="text" class="form-control" id="ans1" name="ans1" placeholder="선택지1"
+						value="{{form.ans1.value}}">
+        			</div>
+					<div class="form-group m-2">
+            			<label>선택지2</label>
+            			<input type="text" class="form-control" id="ans2" name="ans2" placeholder="선택지2"
+						value="{{form.ans2.value}}">
+        			</div>
+					<div class="form-group m-2">
+            			<label>선택지3</label>
+            			<input type="text" class="form-control" id="ans3" name="ans3" placeholder="선택지3"
+						value="{{form.ans3.value}}">
+        			</div>
+					<div class="form-group m-2">
+            			<label>선택지4</label>
+            			<input type="text" class="form-control" id="ans4" name="ans4" placeholder="선택지4"
+						value="{{form.ans4.value}}">
+        			</div>
+					<div class="form-check-inline m-2">
+						<div>답</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="ans" id="1" checked>
+  							<label class="form-check-label" for="1">1</label>
+						</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="ans" id="2">
+  							<label class="form-check-label" for="1">2</label>
+						</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="ans" id="3">
+  							<label class="form-check-label" for="1">3</label>
+						</div>
+						<div class="form-check">
+  							<input class="form-check-input" type="radio" name="ans" id="4">
+  							<label class="form-check-label" for="1">4</label>
+						</div>
+					</div>
+        			<br><br>
+        			<button type="submit" class="btn btn-primary" id="btn-save">등록</button>
+        			<button onclick="location.href='../../{{question.id}}'" type="button" class="btn btn-secondary">취소</button>
+    			</form>
     		</div>
-			{% endblock %}
   		</div>
 		<br>
         <div class='m-2'>
